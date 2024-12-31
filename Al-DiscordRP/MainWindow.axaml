@@ -1,0 +1,158 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Al_DiscordRP.Views"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="550"
+        x:Class="Al_DiscordRP.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="AlRP"
+        Width="400" Height="550"
+        Background="#2C2F33"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+        
+    <StackPanel Margin="20" Spacing="15">
+        <!-- Status UI -->
+        <TextBlock Text="{Binding StatusMessage}"
+                  Foreground="White"
+                  Margin="0,0,0,10"/>
+                  
+        <!-- Client ID Textbox -->
+        <Grid ColumnDefinitions="Auto,*">
+            <TextBlock Text="ID" 
+                      VerticalAlignment="Center"
+                      Foreground="White"/>
+            <TextBox Grid.Column="1"
+                     Margin="10,0,0,0"
+                     Text="{Binding ClientId}"/>
+        </Grid>
+        
+        <!-- Type UI -->
+        <Grid ColumnDefinitions="Auto,*">
+            <TextBlock Text="Type" 
+                      VerticalAlignment="Center"
+                      Foreground="White"/>
+            <ComboBox Grid.Column="1"
+                      Margin="10,0,0,0"
+                      SelectedItem="{Binding SelectedType}"
+                      ItemsSource="{Binding Types}"
+                      SelectedIndex="0"/>
+        </Grid>
+
+        <!-- Details -->
+        <Grid ColumnDefinitions="Auto,*">
+            <TextBlock Text="Details" 
+                      VerticalAlignment="Center"
+                      Foreground="White"/>
+            <TextBox Grid.Column="1"
+                     Margin="10,0,0,0"
+                     Text="{Binding Details}"/>
+        </Grid>
+
+        <!-- State -->
+        <Grid ColumnDefinitions="Auto,*">
+            <TextBlock Text="State" 
+                      VerticalAlignment="Center"
+                      Foreground="White"/>
+            <TextBox Grid.Column="1"
+                     Margin="10,0,0,0"
+                     Text="{Binding State}"/>
+        </Grid>
+
+        <!-- Timestamp -->
+        <StackPanel Spacing="5">
+            <TextBlock Text="Timestamp" 
+                      Foreground="White"
+                      FontWeight="Bold"/>
+            <RadioButton Content="None" 
+                        GroupName="Timestamp"
+                        IsChecked="{Binding NoTimestamp}"
+                        Foreground="White"/>
+            <RadioButton Content="Since CustomRP started" 
+                        GroupName="Timestamp"
+                        IsChecked="{Binding SinceStarted}"
+                        Foreground="White"/>
+            <RadioButton Content="Since last presence update" 
+                        GroupName="Timestamp"
+                        IsChecked="{Binding SinceUpdate}"
+                        Foreground="White"/>
+            <RadioButton Content="Local time" 
+                        GroupName="Timestamp"
+                        IsChecked="{Binding LocalTime}"
+                        Foreground="White"/>
+            <RadioButton Content="Custom timestamp" 
+                        GroupName="Timestamp"
+                        IsChecked="{Binding CustomTimestamp}"
+                        Foreground="White"/>
+            <CalendarDatePicker IsVisible="{Binding CustomTimestamp}"
+                              SelectedDate="{Binding SelectedDate}"
+                              Margin="20,5,0,0"/>
+            <TimePicker IsVisible="{Binding CustomTimestamp}"
+                       SelectedTime="{Binding SelectedTime}"
+                       Margin="20,5,0,0"/>
+        </StackPanel>
+
+        <!-- Images -->
+        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*" Margin="0,10">
+            <TextBlock Text="Large Image" 
+                      Grid.Row="0" Grid.Column="0"
+                      VerticalAlignment="Center"
+                      Foreground="White"/>
+            <TextBox Grid.Row="0" Grid.Column="1"
+                     Margin="10,0,0,10"
+                     Watermark="Image key"
+                     Text="{Binding LargeImage}"/>
+
+            <TextBlock Text="Small Image" 
+                      Grid.Row="1" Grid.Column="0"
+                      VerticalAlignment="Center"
+                      Foreground="White"/>
+            <TextBox Grid.Row="1" Grid.Column="1"
+                     Margin="10,0,0,0"
+                     Watermark="Image key"
+                     Text="{Binding SmallImage}"/>
+        </Grid>
+        
+        <!-- Buttons -->
+        <StackPanel Spacing="10">
+            <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,5">
+                <TextBlock Text="Button 1" 
+                          FontWeight="Bold"
+                          Foreground="White"/>
+            </Grid>
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Text="Text:" 
+                          VerticalAlignment="Center"
+                          Foreground="White"/>
+                <TextBox Grid.Column="1"
+                         Margin="10,0,0,0"
+                         Text="{Binding Button1Text}"/>
+            </Grid>
+            <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Text="URL:" 
+                          VerticalAlignment="Center"
+                          Foreground="White"/>
+                <TextBox Grid.Column="1"
+                         Margin="10,0,0,0"
+                         Text="{Binding Button1Url}"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Connection Controls -->
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Left"
+                    Spacing="10"
+                    Margin="0,10,0,0">
+            <Button Content="Connect" 
+                    Command="{Binding ConnectCommand}"/>
+            <Button Content="Disconnect" 
+                    Command="{Binding DisconnectCommand}"/>
+            <Button Content="Update Presence" 
+                    Command="{Binding UpdatePresenceCommand}"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
